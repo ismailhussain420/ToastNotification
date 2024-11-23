@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toast </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        .popup{
+        
+            position:absolute;
+            bottom:20px;
+            right:20px
+        }
+        .toast {
+            width:300px;
+            height:30px;
+            box-shadow: 0px 0px 8px 2px lightgray;
+            padding:5px;
+            margin:10px;
+            transform: translateX(100%);
+            animation: anim 0.4s linear forwards;
+            
+        }
+
+        @keyframes anim{
+            100%{
+            transform: translateX(0);
+
+            }
+
+        }
+        
+        .toast ::after{
+                
+            content: '';
+            position: absolute;
+            left:0;
+            bottom:0;
+            width:100%;
+            height:5px ;
+            background-color: green;
+          animation: progressd 5s linear forwards;
+
+        
+            }
+            @keyframes progressd{
+                100%{
+                    width:0
+                }
+            }
+            .toast.wrong ::after{
+                background-color: orange;
+            }
+
+            .toast.invalid ::after{
+                background-color: red;
+            }
+
+        .toast  i{ 
+            color:green;
+            font-size:18px;
+            margin-right:10px;
+        }
+        .toast.wrong i{
+
+            color:orange;
+
+        }
+        .toast.invalid i{
+            color:red
+        }
+    </style>
+</head>
+<body>
+    
+
+    <div class="buttons">
+        <button onclick ="showmsg(sucess)">Sucess</button>
+        <button onclick ="showmsg(error)"> Error</button>
+        <button onclick ="showmsg(invalid)"> Invalid</button>
+
+    </div>
+    <div class="popup" id="popup"> 
+
+    </div>
+<script>
+    var popup = document.getElementById("popup");
+
+    var sucess = "<i class='fas fa-check-circle'></i>Sucessfully Submited ";
+    var error = "<i class='fas fa-exclamation-triangle'></i>Something went wrong ";
+    var invalid = "<i class='fas fa-times'></i>Your msg is invalid";
+    function showmsg(msg){
+    var toast = document.createElement("div");
+    toast.classList.add("toast");
+    toast.innerHTML = msg;
+    popup.appendChild(toast);
+    if(msg.includes('invalid')){
+
+        toast.classList.add('invalid');
+
+    }
+
+    if(msg.includes('wrong')){
+
+toast.classList.add('wrong');
+
+}
+setTimeout(()=>{
+    toast.remove();
+},3000)
+    }
+</script>
+</body>
+</html>
